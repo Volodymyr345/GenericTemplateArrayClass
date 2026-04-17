@@ -2,9 +2,10 @@
 #include <cstddef>
 #include <iostream>
 #include <initializer_list>
-
+#include "PrintableArray.h"
 template <class T>
-class Array {
+class Array : 
+    public PrintableArray {
 private:
     T *array {nullptr};
     size_t size;
@@ -12,6 +13,9 @@ public:
     Array():
         size{0} {
     }
+
+
+
     Array(const std::initializer_list<T> &list) : // creating an array
         size{list.size()} {
         array = new T[size];
@@ -33,20 +37,24 @@ public:
         }
         array[size-1] = element;
         delete[] temp;
-        
     }
 
-    void print() { //printing an array
-        std::cout << "Printing Array" << std::endl;
+    void print(std::ostream &os) const override { //printing an array
+        os << "Printing Array" << std::endl;
         for(size_t i{}; i < size; i++) {
-            std::cout << array[i] << " ";
+            os << array[i] << " ";
         }
-        std::cout << std::endl;
+        os << std::endl;
     }
 
     T &operator[](size_t index) {
         return array[index];
     }
+
+    size_t get_size() const{
+        return size;
+    }
+
 
     ~Array() {
         delete [] array;
