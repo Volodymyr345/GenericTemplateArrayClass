@@ -50,6 +50,10 @@ public:
     T &operator[](size_t index) {
         return array[index];
     }
+    
+    T &operator[](int index) {
+        return array[index];
+    }
 
     size_t get_size() const{
         return size;
